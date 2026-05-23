@@ -1,8 +1,10 @@
-//Just an example
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 import 'ThinNoodlesScreen.dart';
 import 'ThickNoodlesScreen.dart';
+import 'history_screen.dart';
+import 'setting_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -17,7 +19,10 @@ class HomeScreen extends StatelessWidget {
         foregroundColor: CupertinoColors.white,
         title: Text(
           "TiMEE",
-          style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
 
@@ -26,53 +31,112 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
 
           children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ThinNoodlesScreen()
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(200, 70),
-                backgroundColor: Colors.yellow,
-                foregroundColor: CupertinoColors.white,
-              ),
-              child: Text("Thin Noodles", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-            ),
-            SizedBox(height: 20),
 
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ThickNoodlesScreen()
+                  MaterialPageRoute(
+                    builder: (context) => ThinNoodlesScreen(),
                   ),
                 );
               },
+
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(200, 70),
                 backgroundColor: Colors.yellow,
                 foregroundColor: CupertinoColors.white,
               ),
-              child: Text("Thick Noodles", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+
+              child: Text(
+                "Thin Noodles",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-            SizedBox(height: 20),
+
+            SizedBox(height: 30),
 
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ThickNoodlesScreen(),
+                  ),
+                );
+              },
+
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(200, 70),
                 backgroundColor: Colors.yellow,
                 foregroundColor: CupertinoColors.white,
               ),
-              child: Text("History", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
 
+              child: Text(
+                "Thick Noodles",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
+
+            SizedBox(height: 30),
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HistoryScreen(),
+                  ),
+                );
+              },
+
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(200, 70),
+                backgroundColor: Colors.yellow,
+                foregroundColor: CupertinoColors.white,
+              ),
+
+              child: Text(
+                "History",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+
             SizedBox(height: 60),
 
-            ElevatedButton(onPressed: () {}, child: Text("Settings")),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingScreen(),
+                  ),
+                );
+              },
+
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(60, 30),
+                backgroundColor: Colors.white10,
+                foregroundColor: Colors.white,
+              ),
+
+              child: Text(
+                "Settings",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         ),
       ),
