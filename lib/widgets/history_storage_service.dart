@@ -4,7 +4,7 @@ import '../models/Member4_timer_history.dart';
 
 class HistoryStorageService {
   static String historyKey =
-      'noodle_timer_history';
+      'Noodles cooked!';
   Future<void> saveHistory(
       TimerHistory history) async {
     final prefs =

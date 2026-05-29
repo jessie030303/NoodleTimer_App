@@ -1,156 +1,130 @@
 import 'package:flutter/material.dart';
-import '../models/Member4_timer_history.dart';
-import '../providers/Member4_history_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'TimerScreen.dart';
 
 class ThinNoodlesScreen extends ConsumerWidget {
   const ThinNoodlesScreen({super.key});
 
-@override
-Widget build(BuildContext context, WidgetRef ref) {
-  return Scaffold(
-    backgroundColor: Colors.yellow[100],
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      backgroundColor: Colors.yellow[100],
       appBar: AppBar(
         backgroundColor: Colors.deepOrange,
+        foregroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.white),
         title: Text(
           "Thin Noodles",
-          style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
+          ),
         ),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 50),
+            SizedBox(height: 60),
             buildOption(
-              ref: ref,
               context: context,
               timeText: "2 min",
               durationInSeconds: 120,
-              preference: "Rushing mode",
+              preference: "Firm",
             ),
-        buildOption(
-          ref: ref,
-          context: context,
-          timeText: "5 min",
-          durationInSeconds: 300,
-          preference: "Relax mode",
-        ),
-        buildOption(
-          ref: ref,
-          context: context,
-          timeText: "10 min",
-          durationInSeconds: 600,
-          preference: "Soggy",
-        ),
-        ],
-        ),
-      ),
-        );
-
-}
-
-  Future<void> saveCookingHistory({
-    required WidgetRef ref,
-    required int durationInSeconds,
-    required String preference,
-  }) async {
-    final history = TimerHistory(
-      noodleType: 'Thin Noodles',
-      durationInSeconds: durationInSeconds,
-      completedAt: DateTime.now(),
-      preference: preference,
-    );
-
-    await ref.read(historyStorageServiceProvider).saveHistory(history);
-  }
-
-  Widget buildOption({
-    required WidgetRef ref,
-    required BuildContext context,
-    required String timeText,
-    required int durationInSeconds,
-    required String preference,
-  }) {
-    return GestureDetector(
-      onTap: () async {
-        await saveCookingHistory(
-          ref: ref,
-
-          durationInSeconds: durationInSeconds,
-
-          preference: preference,
-        );
-
-        Navigator.push(
-          context,
-
-          MaterialPageRoute(
-            builder: (context) => TimerScreen(duration: durationInSeconds),
-          ),
-        );
-      },
-
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(60),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.white,
-              blurRadius: 6,
-              offset: Offset(0, 4),
+            buildOption(
+              context: context,
+              timeText: "5 min",
+              durationInSeconds: 300,
+              preference: "Perfect",
             ),
+            buildOption(
+              context: context,
+              timeText: "10 min",
+              durationInSeconds: 600,
+              preference: "Soft",
+            ),
+            SizedBox(height: 30),
           ],
         ),
+      ),
+    );
+  }
+}
 
-        child: Row(
-          children: [
-            Container(
-              width: 140,
-              height: 140,
-              decoration: const BoxDecoration(
-                color: Colors.deepOrange,
-                shape: BoxShape.circle,
+Widget buildOption({
+  required BuildContext context,
+  required String timeText,
+  required int durationInSeconds,
+  required String preference,
+}) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => TimerScreen(
+            duration: durationInSeconds,
+            noodleType: "Thin Noodles",
+          ),
+        ),
+      );
+    },
+    child: Container(
+      margin: EdgeInsets.symmetric(horizontal: 25, vertical: 15),
+      padding: EdgeInsets.all(18),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(40),
+        boxShadow: [
+          BoxShadow(color: Colors.black12, blurRadius: 8, offset: Offset(0, 4)),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 120,
+            height: 120,
+            decoration: BoxDecoration(
+              color: Colors.deepOrange,
+              shape: BoxShape.circle,
+            ),
+
+            child: Center(
+              child: Text(
+                timeText,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: 20),
+          Expanded(
+            child: Container(
+              height: 90,
+              decoration: BoxDecoration(
+                color: Colors.orange[300],
+                borderRadius: BorderRadius.circular(25),
               ),
               child: Center(
                 child: Text(
-                  timeText,
-                  style: const TextStyle(
-                    fontSize: 30,
+                  preference,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 22,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFFF5F5F5),
+                    color: Colors.white,
                   ),
                 ),
               ),
             ),
-
-            const SizedBox(width: 20),
-            Expanded(
-              child: Container(
-                height: 100,
-                decoration: BoxDecoration(
-                  color: Colors.yellow,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-
-                child: Center(
-                  child: Text(
-                    preference,
-                    style: const TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
-  }
+    ),
+  );
 }
